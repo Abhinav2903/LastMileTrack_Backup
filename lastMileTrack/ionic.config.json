@@ -1,0 +1,7 @@
+{
+  "name": "lastMileTrack",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

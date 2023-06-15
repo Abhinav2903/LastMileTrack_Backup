@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title size="large">LMT</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="redirectToListData(true)">
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="timer-container">
+    <div class="timer-square">
+      <!-- <div class="timer-progress" [style.animation-duration.seconds]="singleTimer"></div> -->
+      <div class="timer-value" [style.border-color]="categoryColor">
+        <ng-container *ngIf="singleTimer !== 0"
+          >{{ formatTime(singleTimer) }}</ng-container
+        >
+        <ng-container *ngIf="singleTimer === 0">
+          <div class="timer-not-started">00:00</div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngFor="let group of groupedTasks;let i = index">
+    <ion-card [class.group-boundary]="true" [style]="getGroupBoundaryStyle(i)">
+      <ion-card-header>
+        <ion-card-title>{{ group.groupID }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+
+        <ion-item-sliding *ngFor="let task of group.tasks">
+          <ion-item button (click)="toggleTimer($event, task)">
+            <ion-label>{{ task.name }}</ion-label>
+            <ion-icon *ngIf="!task.isShowIcon" slot="end" name="checkmark-circle"></ion-icon>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="primary" expandable (click)="redirectToListData(false, task)">
+              Data
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ion-button (click)="exportToCSV()">
+    <ion-icon name="ellipsis-vertical"></ion-icon>
+    Export to CSV
+  </ion-button>
+  <ion-button (click)="endTour()">
+    <ion-icon name="ellipsis-vertical"></ion-icon>
+    End Tour
+  </ion-button>
+</ion-content>

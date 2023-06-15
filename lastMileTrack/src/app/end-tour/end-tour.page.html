@@ -1,0 +1,36 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>endTour</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">endTour</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content> -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>LMT</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Experience Level </ion-label>
+      <ion-select [(ngModel)]="experienceLevel" (ionChange)="updateButtonStatus()">
+        <ion-select-option value="Familiar">Familiar</ion-select-option>
+        <ion-select-option value="Moderately Familiar">Moderately Familiar</ion-select-option>
+        <ion-select-option value="Not Familiar">Not Familiar</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+  </ion-list>
+
+  <div class="start-tour-button-container">
+    <ion-button expand="full" (click)="endTour()" [disabled]="!isButtonEnabled">End Tour</ion-button>
+  </div>
+</ion-content>

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>LMT</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Delivery Option:</ion-label>
+      <ion-select [(ngModel)]="deliveryOption" (ionChange)="updateButtonStatus()">
+        <ion-select-option value="package">Package</ion-select-option>
+        <ion-select-option value="newspaper">Newspaper</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <div class="start-tour-button-container">
+    <ion-button expand="full" (click)="startTour()" [disabled]="!isButtonEnabled">Start Tour</ion-button>
+  </div>
+</ion-content>
