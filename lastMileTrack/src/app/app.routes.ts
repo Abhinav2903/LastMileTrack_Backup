@@ -6,14 +6,14 @@ export const routes: Routes = [
     loadComponent: () => import('./start-tour/start-tour.component').then( m => m.StartTourComponent)
   },
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },  
-  {
     path: '',
     redirectTo: 'start-tour',
     pathMatch: 'full',
   },
+  {
+    path: 'home',
+    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+  },  
   {
     path: 'task-detail',
     loadComponent: () => import('./task-detail/task-detail.page').then( m => m.TaskDetailPage)

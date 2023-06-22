@@ -1,22 +1,21 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicModule, NavController } from '@ionic/angular';
-import { ToastController } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { GroupId, taskListRecord } from '../constants/taskList.enum';
 import { UserStoreServiceService } from '../service/user-store-service.service';
-import { Storage } from '@ionic/storage-angular';
 import { NavigationExtras, Router } from '@angular/router';
 import { LocationtrackerService } from '../service/locationtracker.service';
-import { File } from '@ionic-native/file/ngx';
 import { Task } from '../constants/taskInterface';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Storage } from '@ionic/storage-angular';
+import { File } from '@ionic-native/file/ngx';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [CommonModule, IonicModule, FormsModule],
-  providers: [UserStoreServiceService, Storage, File],
+  providers: [UserStoreServiceService, Storage,File],
 })
 export class HomePage {
   showTaskForm: boolean | undefined;
@@ -37,7 +36,8 @@ export class HomePage {
   GroupId: any;
   // storageVariable
   daytaskCounter = 0; // can be incremented regularly by stroing in the storage
-  newDay: string | undefined; // can be ommited
+  newDay: string | undefined; // can be ommited\
+  taskListArray:Array<Object> =[];
 
   groupBoundaryColors = ['green', 'blue', 'red', 'orange']; // Add more colors if needed
   // taskListRecord: any[] = []; // Your task list array
@@ -240,17 +240,21 @@ export class HomePage {
       this.prevTask = 'newTask';
       // this.calculateEndLocation(task)
       const location = await this.getCurrentLocation();
+      console.log("TASK",task)
       this.assignEndLocation(task, location);
-      this.storeService.getValue(dateKey).then((val) => {
-        //console.log('Key value retrived', val);
-        //console.log(typeof val);
-        if (val != null) {
-          val.push(task);
-          this.storeService.setValue(dateKey, val);
-        } else {
-          this.storeService.setValue(dateKey, [task]);
-        }
-      });
+      
+
+      //remove this code and place at endtour
+      // this.storeService.getValue(dateKey).then((val) => {
+      //   //console.log('Key value retrived', val);
+      //   //console.log(typeof val);
+      //   if (val != null) {
+      //     val.push(task);
+      //     this.storeService.setValue(dateKey, val);
+      //   } else {
+      //     this.storeService.setValue(dateKey, [task]);
+      //   }
+      // });
     }
   }
 
@@ -278,6 +282,8 @@ export class HomePage {
   assignEndLocation(task: any, location: any) {
     task.endLat = location.latitude;
     task.endLon = location.longitude;
+    this.taskListArray.push(task)
+    console.log(this.taskListArray);
   }
 
   async getCurrentLocation() {
@@ -292,10 +298,7 @@ export class HomePage {
     }
   }
 
-  exportToCSV() {
-    //call export to csv function
-    this.storeService.exportToCSV();
-  }
+
 
   getFilteredTasksByGroup(selectedGroupId: GroupId): Task[] {
     return Object.values(taskListRecord).filter(
@@ -334,6 +337,8 @@ export class HomePage {
   endTour() {
     // Perform any necessary logic or data processing here
     // Redirect to the start-tour screen
+    console.log("task list",this.taskListArray);
+    this.storeService.settaskList(this.taskListArray);
     this.router.navigate(['/end-tour']);
   }
 }

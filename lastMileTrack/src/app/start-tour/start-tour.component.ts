@@ -1,35 +1,36 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserStoreServiceService } from '../service/user-store-service.service';
+import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { TaskData } from '../constants/taskList.enum';
+import { FormsModule } from '@angular/forms';
+import { Storage } from '@ionic/storage-angular';
+import { File } from '@ionic-native/file/ngx';
 @Component({
   selector: 'app-start-tour',
   templateUrl: './start-tour.component.html',
   styleUrls: ['./start-tour.component.scss'],
   standalone: true,
   imports: [CommonModule, IonicModule, FormsModule],
+  providers: [UserStoreServiceService, Storage,File],
 })
-export class StartTourComponent  implements OnInit {
-
-  deliveryOption!: string;
+export class StartTourComponent implements OnInit {
+  public deliveryOption!: string;
   isButtonEnabled: boolean = false;
-  
-  ngOnInit() {
-  }
 
-
-
-  constructor(private router: Router) {}
-
+  constructor(
+    private router: Router,
+    private storeService: UserStoreServiceService
+  ) {}
+  ngOnInit() {}
   updateButtonStatus() {
+    this.storeService.setDeliveryOption(this.deliveryOption);
     this.isButtonEnabled = !!this.deliveryOption;
   }
 
   startTour() {
     // Perform any necessary logic or data processing here
-    console.log(this.deliveryOption)
+    console.log(this.deliveryOption);
     
     // Redirect to the home screen
     this.router.navigate(['/home']);
