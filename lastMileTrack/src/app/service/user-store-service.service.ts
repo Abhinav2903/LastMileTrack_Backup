@@ -38,39 +38,6 @@ export class UserStoreServiceService {
   }
 
   async exportToCSV() {
-    // const keys = await this.storageVar.keys();
-    // // Get your storage data (replace with your own logic)
-    // this.storageData = await this.getAllData()
-    // console.log("KEYS",keys)
-    // for (const keyValue in keys) {
-    //   const promises = keys.map(async (key) => {
-    //     const value = await this.storageVar.get(key);
-    //     return {value}
-    //   });
-
-    //   // If the value is an array, iterate over its elements and store each element in a separate row
-    //   if (Array.isArray(promises)) {
-    //     for (const element of promises) {
-    //       this.storageData.push([element]); // Store each element in a separate row
-    //     }
-    //   } else {
-    //     this.storageData.push([promises]); // Store the value as a single-row array
-    //   }
-    // }
-
-    // console.log(this.storageData)
-    // // Convert data to CSV format
-    // const csvData = this.convertToCSV(this.storageData);
-    // console.log("CSV DATA",csvData)
-    // Define the file path and name
-    // const filePath = this.file.externalDataDirectory;
-    // const fileName = 'LMT.csv';
-    // console.log("FilePath",filePath)
-    // Write the CSV data to the file
-    // this.file
-    //   .writeFile(filePath, fileName, csvData, { replace: true })
-    //   .then((_) => console.log('CSV file created successfully'))
-    //   .catch((err) => console.error('Error creating CSV file', err));
     try {
       const keys = await this.storageVar.keys();
       this.storageData = await this.getAllData();
@@ -101,7 +68,6 @@ export class UserStoreServiceService {
 
   convertToCSV(data: any[]): string {
     // Convert data to CSV format (implement your own logic here)
-    // let csvContent = "Date,Year,Name,Show Icon,Timer,StartLat,StartLon,EndLat,EndLon,DeliveryOption,ExperienceRating\n"; // Header row
     let csvContent =
     'Date,Year,Delivery Option,Experience Rating,Group ID,Name,Show Icon,Timer,Start Lat,Start Lon,End Lat,End Lon\n'; // Header row
 
@@ -111,8 +77,6 @@ export class UserStoreServiceService {
       const { key, value } = entry;
       if (key == 'DeliveryOption' || key == 'TaskList') {
         console.log('Not Neede Keys');
-        // console.log('KEY not required:', key);
-        // console.log('VALUE not required:', value);
       } else {
         const date = key.split(',')[0];
         const year = key.split(',')[1];

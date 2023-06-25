@@ -13,7 +13,7 @@ import { File } from '@ionic-native/file/ngx';
   styleUrls: ['./end-tour.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
-  providers: [UserStoreServiceService, Storage,File],
+  providers: [UserStoreServiceService, Storage, File],
 })
 export class EndTourPage implements OnInit {
   taskData: TaskData = {
@@ -21,75 +21,89 @@ export class EndTourPage implements OnInit {
     deliveryOption: 'option',
     experienceRating: 'rating',
   };
-  
-  constructor(private router: Router,private storeService:UserStoreServiceService,private alertController:AlertController,private storageVar:Storage) { }
+
+  constructor(
+    private router: Router,
+    private storeService: UserStoreServiceService,
+    private alertController: AlertController,
+    private storageVar: Storage
+  ) {}
   experienceLevel!: string;
   isButtonEnabled: boolean = false;
-  taskList!:any;
-  deliveryOption!:any;
+  taskList!: any;
+  deliveryOption!: any;
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   updateButtonStatus() {
     this.dataValues();
-
   }
 
-  async dataValues(){
-    this.taskList = await this.storageVar.get("TaskList");
-    this.deliveryOption = await this.storageVar.get("DeliveryOption");
-    console.log("TASK LIST",this.taskList);
-    console.log("DEL OPTION",this.deliveryOption);
-    this.saveData(this.taskList,this.deliveryOption)
+  async dataValues() {
+    this.taskList = await this.storageVar.get('TaskList');
+    this.deliveryOption = await this.storageVar.get('DeliveryOption');
+    console.log('TASK LIST', this.taskList);
+    console.log('DEL OPTION', this.deliveryOption);
+    this.saveData(this.taskList, this.deliveryOption);
     this.isButtonEnabled = !!this.experienceLevel;
   }
   async endTour() {
     // Perform any necessary logic or data processing here
-    console.log(this.experienceLevel)
+    console.log(this.experienceLevel);
     // Redirect to the start-tour screen
+    this.router.navigate(['/start-tour']);
+    // const alert = await this.alertController.create({
+    //   header: 'Export Data to CSV',
+    //   message: 'Do you want to export data to CSV?',
+    //   buttons: [
+    //     {
+    //       text: 'No',
+    //       role: 'cancel',
+    //       handler: () => {
+    //         // Handle "No" button click
+    //         this.router.navigate(['/start-tour']);
+    //       }
+    //     },
+    //     {
+    //       text: 'Yes',
+    //       handler: async () => {
+    //         try {
+    //           await this.storeService.exportToCSV();
+    //           // await this.showCongratulationsAlert('CSV file created successfully');
+    //           this.router.navigate(['/start-tour']);
+    //           // Redirect the user to the start tour page
+    //           // Implement your navigation logic here
+    //         } catch (err) {
+    //           // Handle the error if the file creation fails
+    //           this.router.navigate(['/start-tour']);
+    //         }
+    //       }
+    //     }
+    //   ]
+    // });
 
-    const alert = await this.alertController.create({
-      header: 'Export Data to CSV',
-      message: 'Do you want to export data to CSV?',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => {
-            // Handle "No" button click
-            this.router.navigate(['/start-tour']);
-          }
-        },
-        {
-          text: 'Yes',
-          handler: async () => {
-            try {
-              await this.storeService.exportToCSV();
-              // await this.showCongratulationsAlert('CSV file created successfully');
-              this.router.navigate(['/start-tour']);
-              // Redirect the user to the start tour page
-              // Implement your navigation logic here
-            } catch (err) {
-              // Handle the error if the file creation fails
-              this.router.navigate(['/start-tour']);
-            }
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-    
+    // await alert.present();
   }
 
+  async saveCSVFile() {
+    try {
+      await this.storeService.exportToCSV();
+      this.router.navigate(['/start-tour']);
+      // Redirect the user to the start tour page
+      // Implement your navigation logic here
+    } catch (err) {
+      // Handle the error if the file creation fails
+      this.router.navigate(['/start-tour']);
+    }
+  }
 
-  async showCongratulationsAlert(message: string = 'Congratulations!'): Promise<HTMLIonAlertElement> {
+  async showCongratulationsAlert(
+    message: string = 'Congratulations!'
+  ): Promise<HTMLIonAlertElement> {
     const alert = await this.alertController.create({
       header: 'Success',
       message: message,
-      buttons: ['OK']
+      buttons: ['OK'],
     });
 
     await alert.present();
@@ -100,11 +114,13 @@ export class EndTourPage implements OnInit {
     return alert;
   }
 
-  async showErrorAlert(message: string = 'An error occurred.'): Promise<HTMLIonAlertElement> {
+  async showErrorAlert(
+    message: string = 'An error occurred.'
+  ): Promise<HTMLIonAlertElement> {
     const alert = await this.alertController.create({
       header: 'Error',
       message: message,
-      buttons: ['OK']
+      buttons: ['OK'],
     });
 
     await alert.present();
@@ -114,7 +130,7 @@ export class EndTourPage implements OnInit {
 
     return alert;
   }
-  saveData(taskList: any,deliveryOption: any){
+  saveData(taskList: any, deliveryOption: any) {
     this.taskData.experienceRating = this.experienceLevel;
     this.taskData.taskList = taskList;
     this.taskData.deliveryOption = deliveryOption;
@@ -123,8 +139,6 @@ export class EndTourPage implements OnInit {
 
     //remove this code and place at endtour
     this.storeService.getValue(dateKey).then((val) => {
-
-      
       if (val != null) {
         val.push(this.taskData);
         this.storeService.setValue(dateKey, val);
@@ -144,5 +158,4 @@ export class EndTourPage implements OnInit {
       })
       .replace(/ /g, '');
   }
-
 }

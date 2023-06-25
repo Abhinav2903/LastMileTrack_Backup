@@ -8,8 +8,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let data of allData">
-    <ion-card-header> {{ data.key }} </ion-card-header>
+  <ion-card *ngFor="let data of taskListMain">
+    <ion-card-content>
+      {{data}}
+    </ion-card-content>
+    <!-- <ion-card-header> {{ data.key }} </ion-card-header>
     <ion-card-content>
       <ion-list *ngIf="showSpecificTask == false">
         <ion-item-sliding *ngFor="let task of data.value">
@@ -45,6 +48,6 @@
           </div>
         </ion-item-sliding>
       </ion-list>
-    </ion-card-content>
+    </ion-card-content> -->
   </ion-card>
 </ion-content>

@@ -25,6 +25,7 @@ export class TaskDetailPage implements OnInit {
   allData: any[] = [];
   showTask: any;
   showSpecificTask = false;
+  taskListMain: any[]=[];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,11 +42,70 @@ export class TaskDetailPage implements OnInit {
     this.getTaskData(pageData, taskData);
   }
 
-  getTaskData(pageData: any, taskData: any) {
-    this.storeService.getAllData().then((data) => {
-      // console.log(data);
-      this.allData = data;
+  async getTaskData(pageData: any, taskData: any) {
+    this.allData = await this.storeService.getAllData()
+    // .then((data) => {
+    //   // console.log(data);
+    //   this.allData = data;
+    // });
+    console.log("Data",this.allData);
+    // this.allData.forEach(())
+
+    this.allData.forEach((entry) => {
+      const { key, value } = entry;
+      if (key == 'DeliveryOption' || key == 'TaskList') {
+        console.log('Not Neede Keys');
+      } else {
+        const date = key.split(',')[0];
+        const year = key.split(',')[1];
+
+        // console.log('DATE:', date);
+        // console.log('Year:', year);
+        // console.log('KEY :', key);
+        // console.log('VALUE :', value);
+
+        value.forEach(
+          (item: {
+            taskList: any;
+            deliveryOption: any;
+            experienceRating: any;
+          }) => {
+            const { taskList, deliveryOption, experienceRating } = item;
+
+            console.log(taskList, deliveryOption, experienceRating);
+            this.taskListMain.push(taskList);
+            
+            // taskList.forEach(
+            //   (task: {
+            //     groupId: any;
+            //     name: any;
+            //     isShowIcon: any;
+            //     timer: any;
+            //     startLat: any;
+            //     startLon: any;
+            //     endLat: any;
+            //     endLon: any;
+            //   }) => {
+            //     const {
+            //       groupId,
+            //       name,
+            //       isShowIcon,
+            //       timer,
+            //       startLat,
+            //       startLon,
+            //       endLat,
+            //       endLon,
+            //     } = task;
+            //     // csvContent += `${date},${year},${deliveryOption},${experienceRating},${groupId},${name},${isShowIcon},${timer},${startLat},${startLon},${endLat},${endLon}\n`; // CSV row
+            //   }
+            // );
+          }
+        );
+      }
+      console.log(this.taskListMain);
+
     });
+
     if (pageData == true) {
       console.log('TRUE PAGE DATA');
     } else {
