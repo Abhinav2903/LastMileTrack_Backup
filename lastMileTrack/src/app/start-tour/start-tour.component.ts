@@ -31,7 +31,8 @@ export class StartTourComponent implements OnInit {
   startTour() {
     // Perform any necessary logic or data processing here
     console.log(this.deliveryOption);
-    
+    this.deliveryOption='';
+    this.isButtonEnabled = false;
     // Redirect to the home screen
     this.router.navigate(['/home']);
   }

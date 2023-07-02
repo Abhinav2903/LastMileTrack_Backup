@@ -7,16 +7,16 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label>Was liefern Sie aus?/Delivery Option:</ion-label>
+      <ion-label>Was liefern Sie aus?</ion-label>
       <ion-select [(ngModel)]="deliveryOption" (ionChange)="updateButtonStatus()">
-        <ion-select-option value="Package">Pakete/Package</ion-select-option>
-        <ion-select-option value="Newspaper">Briefe/Zeitschriften/Newspaper</ion-select-option>
-        <ion-select-option value="Both">Verbund/Both</ion-select-option>
+        <ion-select-option value="Package">Pakete</ion-select-option>
+        <ion-select-option value="Newspaper">Briefe/Zeitschriften</ion-select-option>
+        <ion-select-option value="Both">Verbund</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
 
   <div class="start-tour-button-container">
-    <ion-button expand="full" (click)="startTour()" [disabled]="!isButtonEnabled">Start Tour</ion-button>
+    <ion-button expand="full" (click)="startTour()" [disabled]="!isButtonEnabled">Tour starten</ion-button>
   </div>
 </ion-content>

@@ -20,22 +20,18 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label>Wie vertraut sind sie mit dem Liefergebiet?/Experience Level </ion-label>
+      <ion-label>Wie vertraut sind sie mit dem Liefergebiet?</ion-label>
       <ion-select [(ngModel)]="experienceLevel" (ionChange)="updateButtonStatus()">
-        <ion-select-option value="Familiar">Vertraut/Familiar</ion-select-option>
-        <ion-select-option value="Moderately Familiar">Mäßig vertraut/Moderately Familiar</ion-select-option>
-        <ion-select-option value="Not Familiar">Nicht vertraut/Not Familiar</ion-select-option>
+        <ion-select-option value="Familiar">Vertraut</ion-select-option>
+        <ion-select-option value="Moderately Familiar">Mäßig vertraut</ion-select-option>
+        <ion-select-option value="Not Familiar">Nicht vertraut</ion-select-option>
       </ion-select>
     </ion-item>
     
   </ion-list>
 
   <div class="start-tour-button-container" >
-    <!-- <ion-button (click)="saveCSVFile()">
-      <ion-icon name="ellipsis-vertical"></ion-icon>
-      Export Data to CSV
-    </ion-button> -->
-    <ion-button expand="full" (click)="saveCSVFile()" >Export Data to CSV</ion-button>
-    <ion-button expand="full" (click)="endTour()" [disabled]="!isButtonEnabled">End Tour</ion-button>
+    <ion-button expand="full" (click)="saveCSVFile()" [disabled]="!isButtonEnabled">Daten in CSV exportieren</ion-button>
+    <ion-button expand="full" (click)="endTour()" [disabled]="!isButtonEnabled">Ende der Tour</ion-button>
   </div>
 </ion-content>

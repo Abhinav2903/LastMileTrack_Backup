@@ -51,38 +51,10 @@ export class EndTourPage implements OnInit {
     // Perform any necessary logic or data processing here
     console.log(this.experienceLevel);
     // Redirect to the start-tour screen
+    this.experienceLevel = '';
+    this.isButtonEnabled = false;
     this.router.navigate(['/start-tour']);
-    // const alert = await this.alertController.create({
-    //   header: 'Export Data to CSV',
-    //   message: 'Do you want to export data to CSV?',
-    //   buttons: [
-    //     {
-    //       text: 'No',
-    //       role: 'cancel',
-    //       handler: () => {
-    //         // Handle "No" button click
-    //         this.router.navigate(['/start-tour']);
-    //       }
-    //     },
-    //     {
-    //       text: 'Yes',
-    //       handler: async () => {
-    //         try {
-    //           await this.storeService.exportToCSV();
-    //           // await this.showCongratulationsAlert('CSV file created successfully');
-    //           this.router.navigate(['/start-tour']);
-    //           // Redirect the user to the start tour page
-    //           // Implement your navigation logic here
-    //         } catch (err) {
-    //           // Handle the error if the file creation fails
-    //           this.router.navigate(['/start-tour']);
-    //         }
-    //       }
-    //     }
-    //   ]
-    // });
 
-    // await alert.present();
   }
 
   async saveCSVFile() {

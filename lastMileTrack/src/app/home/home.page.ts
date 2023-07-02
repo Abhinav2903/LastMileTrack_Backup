@@ -152,18 +152,18 @@ export class HomePage {
         return this.groupBoundaryColors[0]; // Replace 'defaultColor' with the default color value
     }
   }
-  //routing to the list page
-  redirectToListData(completeData?: boolean, task?: any) {
-    // Pass data to the TaskDetailPage
-    const navigationExtras: NavigationExtras = {
-      state: {
-        taskData: task,
-        pageData: completeData,
-      },
-    };
+  // //routing to the list page
+  // redirectToListData(completeData?: boolean, task?: any) {
+  //   // Pass data to the TaskDetailPage
+  //   const navigationExtras: NavigationExtras = {
+  //     state: {
+  //       taskData: task,
+  //       pageData: completeData,
+  //     },
+  //   };
 
-    this.router.navigate(['/task-detail'], navigationExtras);
-  }
+  //   this.router.navigate(['/task-detail'], navigationExtras);
+  // }
 
   //start the timer according to the pausedtime or from start
   startTimer(task: any, event: Event, pausedTime: number = 0) {
