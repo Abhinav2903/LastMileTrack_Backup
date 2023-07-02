@@ -41,7 +41,7 @@
   </ng-container>
 
 
-  <ion-button (click)="endTour()">
+  <ion-button (click)="endTour()" [disabled]="!endTourButton" >
     Ende der Tour
   </ion-button>
 </ion-content>

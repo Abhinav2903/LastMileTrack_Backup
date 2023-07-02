@@ -38,7 +38,7 @@ export class HomePage {
   daytaskCounter = 0; // can be incremented regularly by stroing in the storage
   newDay: string | undefined; // can be ommited\
   taskListArray:Array<Object> =[];
-
+  endTourButton = true;
   groupBoundaryColors = ['green', 'blue', 'red', 'orange']; // Add more colors if needed
   // taskListRecord: any[] = []; // Your task list array
 
@@ -330,8 +330,10 @@ export class HomePage {
   public toggleTimer(event: Event, task: any){
     if(task.isShowIcon){
       this.onStart(event,task);
+      this.endTourButton = false;
     }else{
       this.onComplete(event,task);
+      this.endTourButton = true;
     }
   }
   endTour() {
