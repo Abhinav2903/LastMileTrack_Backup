@@ -29,15 +29,11 @@ export enum TaskList {
   Task9 = 'Am Hauseingang warten ',
   Task10 = 'Hauseingang betreten ',
   Task11 = 'Hauseingang verlassen ',
-  Task12 = 'Handheld bedienen ',
 
   Task13 = 'Zum Fahrzeug laufen ',
   Task14 = 'Sendungen zurucklegen',
   Task15 = 'Sendungen zurucklegen',
   Task16 = 'Auf Fahrzeug steigen',
-
-  // Task17 = ':Sendung zustellen',
-  // Task18 = ':Am Hauseingang warten',
 }
 
 export enum GroupId {
@@ -152,16 +148,6 @@ export const taskListRecord: Record<TaskList, Task> = {
   [TaskList.Task11]: {
     groupId: GroupId.Group3,
     name: TaskList.Task11,
-    isShowIcon: true,
-    timer: 0,
-    startLat: 0,
-    startLon: 0,
-    endLat: 0,
-    endLon: 0,
-  },
-  [TaskList.Task12]: {
-    groupId: GroupId.Group3,
-    name: TaskList.Task12,
     isShowIcon: true,
     timer: 0,
     startLat: 0,
