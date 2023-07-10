@@ -53,8 +53,15 @@ export class EndTourPage implements OnInit {
     // Redirect to the start-tour screen
     this.experienceLevel = '';
     this.isButtonEnabled = false;
-    this.router.navigate(['/start-tour']);
-
+    try {
+      await this.storeService.exportToCSV();
+      this.router.navigate(['/start-tour']);
+      // Redirect the user to the start tour page
+      // Implement your navigation logic here
+    } catch (err) {
+      // Handle the error if the file creation fails
+      this.router.navigate(['/start-tour']);
+    }
   }
 
   async saveCSVFile() {

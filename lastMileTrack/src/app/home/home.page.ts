@@ -146,8 +146,8 @@ export class HomePage {
       // Add more cases for other groupIds and their corresponding color values
       case GroupId.Group3:
         return this.groupBoundaryColors[2]; 
-        case GroupId.Group4:
-          return this.groupBoundaryColors[3]; 
+        // case GroupId.Group4:
+        //   return this.groupBoundaryColors[3]; 
       default:
         return this.groupBoundaryColors[0]; // Replace 'defaultColor' with the default color value
     }

@@ -40,8 +40,7 @@ export enum GroupId {
 
   Group1 = 'Fahren',
   Group2 = 'Laufen',
-  Group3 = 'Paketzustellung',
-  Group4 = 'VerbundZustellung Brief/Zeitung',
+  Group3 = 'Zustellung'
 }
 
 export const taskListRecord: Record<TaskList, Task> = {
@@ -106,7 +105,7 @@ export const taskListRecord: Record<TaskList, Task> = {
     endLon: 0,
   },
   [TaskList.Task7]: {
-    groupId: GroupId.Group4,
+    groupId: GroupId.Group3,
     name: TaskList.Task7,
     isShowIcon: true,
     timer: 0,
@@ -176,7 +175,7 @@ export const taskListRecord: Record<TaskList, Task> = {
     endLon: 0,
   },
   [TaskList.Task15]: {
-    groupId: GroupId.Group4,
+    groupId: GroupId.Group3,
     name: TaskList.Task15,
     isShowIcon: true,
     timer: 0,
