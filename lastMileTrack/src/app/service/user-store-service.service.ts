@@ -56,7 +56,7 @@ export class UserStoreServiceService {
 
       await this.file.writeFile(filePath, fileName, csvData, { replace: true });
       console.log('CSV file created successfully');
-
+      this.storageVar.remove("TaskList");
       // Return a resolved promise to indicate successful file creation
       return Promise.resolve();
     } catch (err) {
@@ -69,7 +69,7 @@ export class UserStoreServiceService {
   convertToCSV(data: any[]): string {
     // Convert data to CSV format (implement your own logic here)
     let csvContent =
-    'Date,Year,Delivery Option,Experience Rating,Group ID,Name,Show Icon,Timer,Start Lat,Start Lon,End Lat,End Lon\n'; // Header row
+    'Year,Month,Date,Delivery Option,Experience Rating,Group ID,Name,Timer,Start Lat,Start Lon,End Lat,End Lon\n'; // Header row
 
     console.log('DATA:', data);
 
@@ -83,8 +83,11 @@ export class UserStoreServiceService {
 
         // console.log('DATE:', date);
         // console.log('Year:', year);
-        // console.log('KEY :', key);
-        // console.log('VALUE :', value);
+        const matches = key.match(/^([A-Za-z]+)(\d+)/);
+        const month = matches[1];
+        const numdate = matches[2];
+        // console.log('MONTH :', month );
+        // console.log('numdate :', numdate);
 
         value.forEach(
           (item: {
@@ -97,9 +100,7 @@ export class UserStoreServiceService {
             console.log(taskList, deliveryOption, experienceRating);
             taskList.forEach(
               (task: {
-                groupId: any;
                 name: any;
-                isShowIcon: any;
                 timer: any;
                 startLat: any;
                 startLon: any;
@@ -107,16 +108,14 @@ export class UserStoreServiceService {
                 endLon: any;
               }) => {
                 const {
-                  groupId,
                   name,
-                  isShowIcon,
                   timer,
                   startLat,
                   startLon,
                   endLat,
                   endLon,
                 } = task;
-                csvContent += `${date},${year},${deliveryOption},${experienceRating},${groupId},${name},${isShowIcon},${timer},${startLat},${startLon},${endLat},${endLon}\n`; // CSV row
+                csvContent += `${year},${month},${numdate},${deliveryOption},${experienceRating},${name},${timer},${startLat},${startLon},${endLat},${endLon}\n`; // CSV row
               }
             );
           }

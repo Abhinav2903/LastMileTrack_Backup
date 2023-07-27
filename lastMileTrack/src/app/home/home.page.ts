@@ -168,12 +168,13 @@ export class HomePage {
   //start the timer according to the pausedtime or from start
   startTimer(task: any, event: Event, pausedTime: number = 0) {
     task.isShowIcon = !task.isShowIcon;
-    this.startTime = new Date().getTime() - pausedTime * 1000;
+    this.startTime = new Date().getTime() - pausedTime;
     this.timerInterval = setInterval(() => {
       this.calculateElapsedTime();
       task.timer = this.elapsedTime;
+      // console.log("Task Timer",task.timer)
       this.singleTimer = task.timer;
-    }, 1000);
+    },10);
 
     
     // still remaining the code for if a new task timer is clicked stop the previous timer save it and start new
@@ -189,7 +190,7 @@ export class HomePage {
     pausedTime: number = 0
   ) {
     // if previously there is no task then start new task
-    if (typeof this.prevTask === 'undefined' || this.prevTask === 'newTask') {
+    if (typeof this.prevTask === 'undefined' || this.prevTask === 'new Task') {
       this.singleTimer = 0;
       this.prevTask = task;
       this.startTimer(task, event, pausedTime);
@@ -213,7 +214,9 @@ export class HomePage {
   // calculate the time elapsed
   calculateElapsedTime() {
     const endTime = new Date();
-    this.elapsedTime = Math.round((endTime.getTime() - this.startTime) / 1000);
+    // this.elapsedTime = Math.round((endTime.getTime() - this.startTime) / 1000);
+    this.elapsedTime = (endTime.getTime() - this.startTime)/1000 ;
+    // console.log("Elapsed Time",this.elapsedTime); 
   }
 
   // stop timer
@@ -240,7 +243,7 @@ export class HomePage {
       this.prevTask = 'newTask';
       // this.calculateEndLocation(task)
       const location = await this.getCurrentLocation();
-      console.log("TASK",task)
+      // console.log("TASK",task)
       this.assignEndLocation(task, location);
       
 
@@ -283,7 +286,7 @@ export class HomePage {
     task.endLat = location.latitude;
     task.endLon = location.longitude;
     this.taskListArray.push(task)
-    console.log(this.taskListArray);
+    // console.log(this.taskListArray);
   }
 
   async getCurrentLocation() {
@@ -314,17 +317,24 @@ export class HomePage {
       'margin-top': '0px',
     };
   }
+
+
   formatTime(time: number): string {
-    // const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = time % 60;
-    // ${this.padZero(hours)}:
+    const totalSeconds = Math.floor(time);
+    const milliseconds = Math.floor((time % 1) * 1000);
   
-    return `${this.padZero(minutes)}:${this.padZero(seconds)}`;
+    const formattedSeconds = this.padZero(totalSeconds);
+    const formattedMilliseconds = this.padZero(milliseconds, 3);
+  
+    return `${formattedSeconds}:${formattedMilliseconds}`;
   }
   
-  private padZero(num: number): string {
-    return num.toString().padStart(2, '0');
+  private padZero(num: number, size: number = 2): string {
+    let numStr = num.toString();
+    while (numStr.length < size) {
+      numStr = "0" + numStr;
+    }
+    return numStr;
   }
 
   public toggleTimer(event: Event, task: any){
@@ -339,7 +349,7 @@ export class HomePage {
   endTour() {
     // Perform any necessary logic or data processing here
     // Redirect to the start-tour screen
-    console.log("task list",this.taskListArray);
+    // console.log("task list",this.taskListArray);
     this.storeService.settaskList(this.taskListArray);
     this.router.navigate(['/end-tour']);
   }

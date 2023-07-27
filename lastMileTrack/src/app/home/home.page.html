@@ -11,13 +11,22 @@
 
 <ion-content [fullscreen]="true">
   <div class="timer-container">
-    <div class="timer-square">
+    <!-- <div class="timer-square">
       <div class="timer-value" [style.border-color]="categoryColor">
         <ng-container *ngIf="singleTimer !== 0"
           >{{ formatTime(singleTimer) }}</ng-container
         >
         <ng-container *ngIf="singleTimer === 0">
           <div class="timer-not-started">00:00</div>
+        </ng-container>
+      </div>
+    </div> -->
+
+    <div class="timer-square">
+      <div class="timer-value" [style.border-color]="categoryColor">
+        <ng-container *ngIf="singleTimer !== 0">{{ formatTime(singleTimer) }}</ng-container>
+        <ng-container *ngIf="singleTimer === 0">
+          <div class="timer-not-started">00:000</div>
         </ng-container>
       </div>
     </div>
@@ -29,7 +38,6 @@
         <ion-card-title>{{ group.groupID }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-
         <ion-item-sliding *ngFor="let task of group.tasks">
           <ion-item button (click)="toggleTimer($event, task)">
             <ion-label>{{ task.name }}</ion-label>
@@ -41,7 +49,8 @@
   </ng-container>
 
 
-  <ion-button (click)="endTour()" [disabled]="!endTourButton" >
+  <ion-button (click)="endTour()" [disabled]="!endTourButton" expand="full">
     Ende der Tour
   </ion-button>
+  
 </ion-content>
