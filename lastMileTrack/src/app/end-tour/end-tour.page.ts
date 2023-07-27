@@ -119,6 +119,7 @@ export class EndTourPage implements OnInit {
     //remove this code and place at endtour
     this.storeService.getValue(dateKey).then((val) => {
       if (val != null) {
+        console.log("Value",val)
         val.push(this.taskData);
         this.storeService.setValue(dateKey, val);
       } else {

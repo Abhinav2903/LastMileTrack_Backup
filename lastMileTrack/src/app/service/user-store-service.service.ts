@@ -56,7 +56,7 @@ export class UserStoreServiceService {
 
       await this.file.writeFile(filePath, fileName, csvData, { replace: true });
       console.log('CSV file created successfully');
-      this.storageVar.remove("TaskList");
+      // this.storageVar.remove("TaskList");
       // Return a resolved promise to indicate successful file creation
       return Promise.resolve();
     } catch (err) {
@@ -69,7 +69,7 @@ export class UserStoreServiceService {
   convertToCSV(data: any[]): string {
     // Convert data to CSV format (implement your own logic here)
     let csvContent =
-    'Year,Month,Date,Delivery Option,Experience Rating,Group ID,Name,Timer,Start Lat,Start Lon,End Lat,End Lon\n'; // Header row
+    'Year,Month,Date,Start Time,End Time,Delivery Option,Experience Rating,Name,Timer,Start Lat,Start Lon,End Lat,End Lon\n'; // Header row
 
     console.log('DATA:', data);
 
@@ -106,6 +106,8 @@ export class UserStoreServiceService {
                 startLon: any;
                 endLat: any;
                 endLon: any;
+                actionStartTime: any;
+                actionEndTime: any;
               }) => {
                 const {
                   name,
@@ -114,8 +116,10 @@ export class UserStoreServiceService {
                   startLon,
                   endLat,
                   endLon,
+                  actionStartTime,
+                  actionEndTime
                 } = task;
-                csvContent += `${year},${month},${numdate},${deliveryOption},${experienceRating},${name},${timer},${startLat},${startLon},${endLat},${endLon}\n`; // CSV row
+                csvContent += `${year},${month},${numdate},${actionStartTime},${actionEndTime},${deliveryOption},${experienceRating},${name},${timer},${startLat},${startLon},${endLat},${endLon}\n`; // CSV row
               }
             );
           }

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Storage } from '@ionic/storage-angular';
 import { File } from '@ionic-native/file/ngx';
+import * as moment from 'moment';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -37,7 +38,7 @@ export class HomePage {
   // storageVariable
   daytaskCounter = 0; // can be incremented regularly by stroing in the storage
   newDay: string | undefined; // can be ommited\
-  taskListArray:Array<Object> =[];
+  taskListArray:any[]=[];
   endTourButton = true;
   groupBoundaryColors = ['green', 'blue', 'red', 'orange']; // Add more colors if needed
   // taskListRecord: any[] = []; // Your task list array
@@ -170,7 +171,7 @@ export class HomePage {
     task.isShowIcon = !task.isShowIcon;
     this.startTime = new Date().getTime() - pausedTime;
     this.timerInterval = setInterval(() => {
-      this.calculateElapsedTime();
+      this.calculateElapsedTime(task);
       task.timer = this.elapsedTime;
       // console.log("Task Timer",task.timer)
       this.singleTimer = task.timer;
@@ -212,10 +213,13 @@ export class HomePage {
     }
   }
   // calculate the time elapsed
-  calculateElapsedTime() {
+  calculateElapsedTime(task:any) {
     const endTime = new Date();
     // this.elapsedTime = Math.round((endTime.getTime() - this.startTime) / 1000);
     this.elapsedTime = (endTime.getTime() - this.startTime)/1000 ;
+    // task.actionEndTime = endTime.getTime();
+    task.actionStartTime = moment(this.startTime).format('hh:mm:ss');
+    task.actionEndTime = moment(endTime.getTime()).format('hh:mm:ss');
     // console.log("Elapsed Time",this.elapsedTime); 
   }
 
@@ -229,7 +233,7 @@ export class HomePage {
     }
     event.stopPropagation();
     clearInterval(this.timerInterval);
-    this.calculateElapsedTime();
+    this.calculateElapsedTime(task);
     const dateKey = this.createDateKey();
 
     if (toast) {
@@ -246,18 +250,6 @@ export class HomePage {
       // console.log("TASK",task)
       this.assignEndLocation(task, location);
       
-
-      //remove this code and place at endtour
-      // this.storeService.getValue(dateKey).then((val) => {
-      //   //console.log('Key value retrived', val);
-      //   //console.log(typeof val);
-      //   if (val != null) {
-      //     val.push(task);
-      //     this.storeService.setValue(dateKey, val);
-      //   } else {
-      //     this.storeService.setValue(dateKey, [task]);
-      //   }
-      // });
     }
   }
 
@@ -283,10 +275,24 @@ export class HomePage {
   }
 
   assignEndLocation(task: any, location: any) {
-    task.endLat = location.latitude;
-    task.endLon = location.longitude;
-    this.taskListArray.push(task)
-    // console.log(this.taskListArray);
+
+    const newTask = {
+      groupId: task.groupId,
+      name: task.name,
+      timer:task.timer,
+      startLat: task.startLat,
+      startLon: task.startLon,
+      endLat: 0,
+      endLon: 0,
+      actionStartTime:task.actionStartTime,
+      actionEndTime:task.actionEndTime
+    };
+  
+    newTask.endLat = location.latitude;
+    newTask.endLon = location.longitude;
+
+    this.taskListArray.push(newTask);
+    // console.log("after push",this.taskListArray);
   }
 
   async getCurrentLocation() {
@@ -346,11 +352,11 @@ export class HomePage {
       this.endTourButton = true;
     }
   }
-  endTour() {
+  async endTour() {
     // Perform any necessary logic or data processing here
     // Redirect to the start-tour screen
     // console.log("task list",this.taskListArray);
-    this.storeService.settaskList(this.taskListArray);
+    await this.storeService.settaskList(this.taskListArray);
     this.router.navigate(['/end-tour']);
   }
 }

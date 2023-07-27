@@ -7,12 +7,14 @@ export interface Task {
   endLat: number;
   endLon: number;
   groupId: GroupId;
+  actionStartTime: any;
+  actionEndTime: any;
 }
 
-export interface TaskData{
-  taskList:Array<Object>;
-  deliveryOption:string;
-  experienceRating:string;
+export interface TaskData {
+  taskList: Array<Object>;
+  deliveryOption: string;
+  experienceRating: string;
 }
 
 export enum TaskList {
@@ -30,17 +32,16 @@ export enum TaskList {
   Task10 = 'Sendungen sortieren',
   Task11 = 'Fahrzeug schieben',
 
-  Task13 = 'Sonstiges'
+  Task13 = 'Sonstiges',
   // Task14 = 'Sendungen zurucklegen',
   // Task15 = 'Sendungen zurucklegen',
   // Task16 = 'Auf Fahrzeug steigen',
 }
 
 export enum GroupId {
-
   Group1 = 'Aufgabe',
   Group2 = 'Laufen',
-  Group3 = 'Zustellung'
+  Group3 = 'Zustellung',
 }
 
 export const taskListRecord: Record<TaskList, Task> = {
@@ -53,6 +54,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task2]: {
     groupId: GroupId.Group1,
@@ -63,6 +66,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task3]: {
     groupId: GroupId.Group1,
@@ -73,6 +78,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task4]: {
     groupId: GroupId.Group1,
@@ -83,6 +90,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task5]: {
     groupId: GroupId.Group1,
@@ -93,6 +102,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task6]: {
     groupId: GroupId.Group1,
@@ -103,6 +114,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task7]: {
     groupId: GroupId.Group1,
@@ -113,6 +126,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task8]: {
     groupId: GroupId.Group1,
@@ -123,6 +138,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task9]: {
     groupId: GroupId.Group1,
@@ -133,6 +150,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task10]: {
     groupId: GroupId.Group1,
@@ -143,6 +162,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task11]: {
     groupId: GroupId.Group1,
@@ -153,6 +174,8 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
+    actionStartTime: 0,
+    actionEndTime: 0,
   },
   [TaskList.Task13]: {
     groupId: GroupId.Group1,
@@ -163,5 +186,7 @@ export const taskListRecord: Record<TaskList, Task> = {
     startLon: 0,
     endLat: 0,
     endLon: 0,
-  }
+    actionStartTime: 0,
+    actionEndTime: 0,
+  },
 };
