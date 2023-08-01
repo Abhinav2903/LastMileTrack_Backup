@@ -19,29 +19,17 @@ export interface TaskData {
 
 export enum TaskList {
   Task1 = 'Fahren zum naechsten Stopp',
-  Task2 = 'Fahrzeug verlassen (und aufstaendern)',
-  Task3 = 'Sendung(en) entnehmen',
-  Task4 = 'Zum Hauseingang/Briefkasten laufen',
-  Task5 = 'Briefkastenzustellung',
-
-  Task6 = 'Am Hauseingang warten',
-  Task7 = 'Haus betreten',
-  Task8 = 'Zum Fahrzeug laufen',
-
-  Task9 = 'Sendung(en) zurücklegen',
-  Task10 = 'Sendungen sortieren',
-  Task11 = 'Fahrzeug schieben',
-
-  Task13 = 'Sonstiges',
-  // Task14 = 'Sendungen zurucklegen',
-  // Task15 = 'Sendungen zurucklegen',
-  // Task16 = 'Auf Fahrzeug steigen',
+  Task2 = 'Sortieren & Entnehmen',
+  Task3 = 'Laufen',
+  Task4 = 'Vor Gebauede warten',
+  Task5 = 'Zustellen',
+  Task6 = 'Sortieren & Zuruecklegen',
+  Task7 = 'Fahrzeug schieben',
+  Task8 = 'Sonstiges',
 }
 
 export enum GroupId {
-  Group1 = 'Aufgabe',
-  Group2 = 'Laufen',
-  Group3 = 'Zustellung',
+  Group1 = 'Aktionen:',
 }
 
 export const taskListRecord: Record<TaskList, Task> = {
@@ -132,54 +120,6 @@ export const taskListRecord: Record<TaskList, Task> = {
   [TaskList.Task8]: {
     groupId: GroupId.Group1,
     name: TaskList.Task8,
-    isShowIcon: true,
-    timer: 0,
-    startLat: 0,
-    startLon: 0,
-    endLat: 0,
-    endLon: 0,
-    actionStartTime: 0,
-    actionEndTime: 0,
-  },
-  [TaskList.Task9]: {
-    groupId: GroupId.Group1,
-    name: TaskList.Task9,
-    isShowIcon: true,
-    timer: 0,
-    startLat: 0,
-    startLon: 0,
-    endLat: 0,
-    endLon: 0,
-    actionStartTime: 0,
-    actionEndTime: 0,
-  },
-  [TaskList.Task10]: {
-    groupId: GroupId.Group1,
-    name: TaskList.Task10,
-    isShowIcon: true,
-    timer: 0,
-    startLat: 0,
-    startLon: 0,
-    endLat: 0,
-    endLon: 0,
-    actionStartTime: 0,
-    actionEndTime: 0,
-  },
-  [TaskList.Task11]: {
-    groupId: GroupId.Group1,
-    name: TaskList.Task11,
-    isShowIcon: true,
-    timer: 0,
-    startLat: 0,
-    startLon: 0,
-    endLat: 0,
-    endLon: 0,
-    actionStartTime: 0,
-    actionEndTime: 0,
-  },
-  [TaskList.Task13]: {
-    groupId: GroupId.Group1,
-    name: TaskList.Task13,
     isShowIcon: true,
     timer: 0,
     startLat: 0,

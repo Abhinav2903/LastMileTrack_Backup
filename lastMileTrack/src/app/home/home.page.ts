@@ -40,7 +40,7 @@ export class HomePage {
   newDay: string | undefined; // can be ommited\
   taskListArray:any[]=[];
   endTourButton = true;
-  groupBoundaryColors = ['green', 'blue', 'red', 'orange']; // Add more colors if needed
+  groupBoundaryColors = ['lightblue']; // Add more colors if needed
   // taskListRecord: any[] = []; // Your task list array
 
   groupedTasks: { groupID: string; tasks: any[] }[] = [];
@@ -84,7 +84,7 @@ export class HomePage {
   }
 
   onPause(event: Event, task: any) {
-    this.stopTimer(task, event, 'Timer Paused!');
+    this.stopTimer(task, event, 'Timer pausiert.');
     this.onPauseCheck = true;
     // Store the paused task and its pausedTime value
     const pausedTask = this.pausedTasks.find((t) => t.task === task);
@@ -99,7 +99,7 @@ export class HomePage {
 
   // function call on the resume button call
   onResume(event: Event, task: any) {
-    this.showToast('Timer Resumed!');
+    this.showToast('Timer fortgesetzt.');
     // Retrieve the pausedTime value for the resumed task
     const pausedTask = this.pausedTasks.find((t) => t.task === task);
     const pausedTime = pausedTask ? pausedTask.pausedTime : 0;
@@ -110,7 +110,7 @@ export class HomePage {
 
   // function on complete button stops the timer after task completion
   onComplete(event: Event, task: any) {
-    this.stopTimer(task, event, 'Task is Completed!', true);
+    this.stopTimer(task, event, 'Aktion abgeschlossen.', true);
     // save the time in the storage
   }
 
@@ -142,13 +142,6 @@ export class HomePage {
     switch (groupId) {
       case GroupId.Group1:
         return this.groupBoundaryColors[0]; // Replace 'color1' with the actual color value for Group1
-      case GroupId.Group2:
-        return this.groupBoundaryColors[1]; // Replace 'color2' with the actual color value for Group2
-      // Add more cases for other groupIds and their corresponding color values
-      case GroupId.Group3:
-        return this.groupBoundaryColors[2]; 
-        // case GroupId.Group4:
-        //   return this.groupBoundaryColors[3]; 
       default:
         return this.groupBoundaryColors[0]; // Replace 'defaultColor' with the default color value
     }
@@ -177,7 +170,7 @@ export class HomePage {
       this.singleTimer = task.timer;
     },10);
 
-    
+
     // still remaining the code for if a new task timer is clicked stop the previous timer save it and start new
   }
 
@@ -198,10 +191,10 @@ export class HomePage {
       const location = await this.getCurrentLocation();
       this.assignStartLocation(task, location);
     } else {
-      // check the previous task name if not same then strat new time for that task
+      // check the previous task name if not same then start new time for that task
       if (this.prevTask.name != task.name) {
         this.singleTimer = 0;
-        this.stopTimer(this.prevTask, event, 'New Task Started');
+        this.stopTimer(this.prevTask, event, 'Aktion gestartet.');
         this.prevTask = task;
         this.startTimer(task, event, pausedTime);
         const location = await this.getCurrentLocation();
@@ -220,13 +213,13 @@ export class HomePage {
     // task.actionEndTime = endTime.getTime();
     task.actionStartTime = moment(this.startTime).format('hh:mm:ss');
     task.actionEndTime = moment(endTime.getTime()).format('hh:mm:ss');
-    // console.log("Elapsed Time",this.elapsedTime); 
+    // console.log("Elapsed Time",this.elapsedTime);
   }
 
   // stop timer
   async stopTimer(task: any, event: Event, toast?: string, direct?: boolean) {
 
-    if (toast === 'New Task Started' && this.onPauseCheck == true) {
+    if (toast === 'Aktion abgeschlossen.' && this.onPauseCheck == true) {
       task.isShowIcon = task.isShowIcon;
     } else {
       task.isShowIcon = !task.isShowIcon;
@@ -241,15 +234,15 @@ export class HomePage {
     }
     if (
       direct ||
-      toast == 'Task is Completed!' ||
-      toast === 'New Task Started'
+      toast == 'Aktion abgeschlossen.' ||
+      toast === 'Aktion gestartet.'
     ) {
       this.prevTask = 'newTask';
       // this.calculateEndLocation(task)
       const location = await this.getCurrentLocation();
       // console.log("TASK",task)
       this.assignEndLocation(task, location);
-      
+
     }
   }
 
@@ -287,7 +280,7 @@ export class HomePage {
       actionStartTime:task.actionStartTime,
       actionEndTime:task.actionEndTime
     };
-  
+
     newTask.endLat = location.latitude;
     newTask.endLon = location.longitude;
 
@@ -299,7 +292,7 @@ export class HomePage {
     const locationCord = await this.locationService.checkPermission();
     if (locationCord == 0) {
       this.showToast(
-        'Location Service Not available,please update the permisions'
+        'GPS Position nicht verfügbar - bitte aktualisieren Sie die Berechtigungen!'
       );
       return 0.0;
     } else {
@@ -317,7 +310,7 @@ export class HomePage {
 
   getGroupBoundaryStyle(index: number) {
     const color =
-      this.groupBoundaryColors[index % this.groupBoundaryColors.length];  
+      this.groupBoundaryColors[index % this.groupBoundaryColors.length];
     return {
       'border-left-color': color,
       'margin-top': '0px',
@@ -328,13 +321,13 @@ export class HomePage {
   formatTime(time: number): string {
     const totalSeconds = Math.floor(time);
     const milliseconds = Math.floor((time % 1) * 1000);
-  
+
     const formattedSeconds = this.padZero(totalSeconds);
     const formattedMilliseconds = this.padZero(milliseconds, 3);
-  
+
     return `${formattedSeconds}:${formattedMilliseconds}`;
   }
-  
+
   private padZero(num: number, size: number = 2): string {
     let numStr = num.toString();
     while (numStr.length < size) {

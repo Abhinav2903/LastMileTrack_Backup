@@ -43,7 +43,7 @@ export class LocationtrackerService {
     } catch (err) {
       console.log(err);
       const toast = await this.toastController.create({
-        message: 'Please enable GPS for accurate location detection.',
+        message: 'Bitte aktivieren Sie GPS für eine genaue Standortbestimmung.',
         duration: 3000,
         position: 'bottom',
         buttons: [
